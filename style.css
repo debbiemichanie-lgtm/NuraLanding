@@ -1104,7 +1104,7 @@ section {
 ===================================================== */
 
 .footer {
-  padding:34px 0 18px;
+  padding:14px 0 18px;
   border-top: none;
   background: var(--turq);
   color: #ffffff;
@@ -1147,12 +1147,9 @@ section {
 
 .footer-column a {
   width: fit-content;
-
   color: rgba(255, 255, 255, 0.78);
-
   font-size: 0.78rem;
   text-decoration: none;
-
   transition:
     color 0.18s ease,
     transform 0.18s ease;
@@ -1460,21 +1457,65 @@ section {
    CELULARES
 ===================================================== */
 
-@media (max-width: 560px) {
-  .footer {
-    padding: 30px 0 24px;
-  }
+@media (max-width:560px){
 
-  .footer-main {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
+.footer{
+    padding:22px 0 14px;
+}
 
-  .footer-bottom {
-    flex-direction: column;
+.footer-main{
+    display:flex;
+    justify-content:center;
+}
 
-    margin-top: 30px;
-  }
+.footer-brand{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    width:100%;
+}
+
+.footer-brand img{
+    width:90px;
+    margin-bottom:8px;
+}
+
+.footer-brand p{
+    max-width:260px;
+    font-size:.8rem;
+    line-height:1.5;
+    margin-bottom:12px;
+}
+
+/* ocultar todas las columnas del mapa */
+
+.footer-column,
+.footer-main > :not(.footer-brand){
+    display:none !important;
+}
+
+/* si el botón Entrar a Nura está dentro de footer-brand */
+
+.footer-login{
+    margin:0 auto;
+}
+
+.footer-bottom{
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    margin-top:14px;
+    padding-top:10px;
+}
+
+.footer-bottom p{
+    text-align:center;
+    max-width:260px;
+    font-size:.66rem;
+    line-height:1.4;
+}
+
 }
 
 @media (max-width: 480px) {
