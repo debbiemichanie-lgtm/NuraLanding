@@ -1,6 +1,6 @@
-/* 
+/*
    MENÚ MOBILE
- */
+*/
 
 const menuButton = document.querySelector(".menu-btn");
 const nav = document.querySelector(".nav");
@@ -24,7 +24,7 @@ if (menuButton && nav) {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) {
+    if (window.innerWidth > 1050) {
       nav.classList.remove("open");
       menuButton.classList.remove("active");
       menuButton.setAttribute("aria-expanded", "false");
@@ -33,9 +33,9 @@ if (menuButton && nav) {
   });
 }
 
-/* 
+/*
    AÑO AUTOMÁTICO
- */
+*/
 
 const year = document.querySelector("#year");
 
@@ -43,9 +43,9 @@ if (year) {
   year.textContent = new Date().getFullYear();
 }
 
-/* 
+/*
    LINK ACTIVE SEGÚN LA SECCIÓN VISIBLE
- */
+*/
 
 const sectionLinks = Array.from(
   document.querySelectorAll('.nav a[href^="#"]')
@@ -94,9 +94,9 @@ if ("IntersectionObserver" in window) {
 /* Marcar Inicio al cargar la página */
 setActiveLink("inicio");
 
-/* 
+/*
    CARRUSEL DE PROFESIONALES
- */
+*/
 
 const carouselTrack = document.querySelector(".carousel-track");
 
@@ -229,9 +229,9 @@ if (nextButton) {
   });
 }
 
-/* 
+/*
    RECALCULAR RESPONSIVE
- */
+*/
 
 let resizeTimer;
 
@@ -244,9 +244,9 @@ window.addEventListener("resize", () => {
   }, 150);
 });
 
-/* 
+/*
    INICIALIZACIÓN
- */
+*/
 
 createCarouselDots();
 updateCarousel();

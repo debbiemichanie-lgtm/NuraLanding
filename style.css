@@ -149,7 +149,7 @@ section {
 
 .nav-wrap {
   position: relative;
-  min-height: 94px;
+  min-height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -165,8 +165,8 @@ section {
 
 .brand img {
   display: block;
-  width: 120px;
-  height: 80px;
+  width: 94px;
+  height: 62px;
   object-fit: contain;
 }
 
@@ -309,18 +309,26 @@ section {
   gap: 70px;
 }
 
-.hero-copy h1 {
-  max-width: 760px;
-
-  margin: 0;
-
-  font-size: clamp(2.6rem, 5.8vw, 5rem);
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.045em;
+.hero-brand-title {
+  margin: 0 0 10px;
+  color: var(--turq);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.hero-copy h1 span {
+.hero-main-title {
+  max-width: 720px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2.15rem, 4.3vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.hero-main-title .highlight {
   color: var(--turq);
 }
 
@@ -442,27 +450,27 @@ section {
   place-items: center;
 }
 
-.hero-visual img {
+.hero-phone {
   position: relative;
   z-index: 2;
-
   width: min(390px, 88%);
-
-  filter: drop-shadow(0 28px 38px rgba(15, 23, 42, 0.18));
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, 0.07));
 }
+
 
 .glow,
 .phone-glow {
   position: absolute;
 
-  width: 88%;
+  width: 68%;
+  max-width: 360px;
   aspect-ratio: 1;
 
   border-radius: 50%;
 
-  background: rgba(80, 189, 189, 0.16);
+  background: rgba(80, 189, 189, 0.075);
 
-  filter: blur(10px);
+  filter: blur(18px);
 }
 
 /* =====================================================
@@ -488,6 +496,29 @@ section {
   box-shadow: var(--shadow);
 }
 
+.intro-heading {
+  position: relative;
+}
+
+.intro-nuri {
+  width: min(165px, 58%);
+  display: block;
+  margin: 26px auto 0;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, 0.10));
+  transform-origin: center bottom;
+  animation: introNuriFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes introNuriFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg);
+  }
+}
+
 .intro h2,
 .section-heading h2,
 .steps h2,
@@ -497,7 +528,7 @@ section {
 .nuri-copy h2 {
   margin: 0;
 
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
   line-height: 1.12;
   letter-spacing: -0.035em;
 }
@@ -538,6 +569,28 @@ section {
   color: var(--text);
 
   line-height: 1.7;
+}
+
+.section-lead {
+  margin-top: 14px;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+}
+
+.intro-heading .section-lead,
+.professional-card .section-lead,
+.nuri-copy .section-lead,
+.safety .section-lead,
+.final-card .section-lead {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+}
+
+.final-card .section-lead,
+.professional-card .section-lead {
+  color: rgba(255, 255, 255, 0.96);
 }
 
 /* =====================================================
@@ -759,13 +812,14 @@ section {
 }
 
 .professional-item img {
-  width: 100%;
-  height: 210px;
+    display: block;
 
-  display: block;
+    height: 300px;
+    width: auto;
 
-  object-fit: cover;
-  object-position: center top;
+    margin: 0 auto;
+
+    object-fit: contain;
 }
 
 .professional-item__body {
@@ -1250,7 +1304,7 @@ section {
   max-width: 540px;
   margin: 0;
   color: rgba(255, 255, 255, 0.7);
-  font-size: .68rem;
+  font-size: 0.72rem;
   line-height: 1.5;
 }
 
@@ -1318,6 +1372,12 @@ section {
     text-align: center;
   }
 
+  .hero-brand-title,
+  .hero-main-title {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .hero-copy > p,
   .hero-text,
   .hero-tags,
@@ -1330,9 +1390,21 @@ section {
     justify-content: center;
   }
 
-  .hero-visual img {
+  .hero-phone {
     width: min(340px, 72%);
   }
+
+  .glow,
+  .phone-glow {
+    width: min(300px, 56%);
+    background: rgba(80, 189, 189, 0.06);
+    filter: blur(16px);
+  }
+
+  .intro-nuri {
+    width: min(145px, 42%);
+  }
+
 
   .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1379,7 +1451,7 @@ section {
    MENÚ MOBILE Y PANTALLAS MEDIANAS
 ===================================================== */
 
-@media (max-width: 760px) {
+@media (max-width: 1050px) {
   .section {
     padding: 62px 0;
   }
@@ -1389,7 +1461,8 @@ section {
   }
 
   .brand img {
-    width: 135px;
+    width: 102px;
+    height: 66px;
   }
 
   .menu-btn {
@@ -1460,9 +1533,24 @@ section {
     padding-top: 46px;
   }
 
-  .hero-copy h1 {
-    font-size: clamp(2.35rem, 12vw, 3.7rem);
+  .hero-brand-title {
+    font-size: clamp(1.65rem, 4.8vw, 2.15rem);
   }
+
+  .hero-main-title {
+    font-size: clamp(1.8rem, 5.8vw, 2.55rem);
+  }
+
+  .intro h2,
+  .section-heading h2,
+  .steps h2,
+  .professional-card h2,
+  .safety h2,
+  .final-card h2,
+  .nuri-copy h2 {
+    font-size: clamp(1.65rem, 4.5vw, 2.3rem);
+  }
+
 
   .intro-card,
   .professional-card,
@@ -1593,12 +1681,38 @@ section {
   }
 
   .brand img {
-    width: 122px;
+    width: 92px;
+    height: 60px;
   }
 
-  .hero-copy h1 {
-    font-size: 2.35rem;
+  .hero-brand-title {
+    font-size: 1.65rem;
   }
+
+  .hero-main-title {
+    font-size: 1.95rem;
+  }
+
+  .hero-visual {
+    margin-top: 8px;
+  }
+
+  .intro-nuri {
+    width: 120px;
+    margin-top: 20px;
+  }
+
+  .hero-phone {
+    width: min(280px, 76%);
+  }
+
+  .glow,
+  .phone-glow {
+    width: min(220px, 54%);
+    background: rgba(80, 189, 189, 0.05);
+    filter: blur(14px);
+  }
+
 
   .hero-copy > p,
   .hero-text {
@@ -1722,12 +1836,18 @@ section {
 
 @media (max-width: 350px) {
   .brand img {
-    width: 108px;
+    width: 84px;
+    height: 54px;
   }
 
-  .hero-copy h1 {
-    font-size: 2.05rem;
+  .hero-brand-title {
+    font-size: 1.45rem;
   }
+
+  .hero-main-title {
+    font-size: 1.7rem;
+  }
+
 
   .hero-actions {
     flex-direction: column;
