@@ -2965,3 +2965,102 @@ body.modal-open {
 
 
 }
+
+/* =====================================================
+   CORRECCIONES FINALES PARA IOS / MODAL MOBILE
+===================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 760px) {
+  /*
+     iOS Safari amplía automáticamente la página cuando un
+     input tiene una fuente menor a 16 px. Al usar 16 px se
+     evita el zoom que quedaba activo después del envío.
+  */
+  .form-field input,
+  .form-field textarea,
+  .professional-form select {
+    font-size: 16px;
+  }
+
+  .professional-modal {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .professional-modal__dialog {
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+
+  /* Tabla de disponibilidad compacta y sin desplazamiento horizontal. */
+  .availability-table-wrapper {
+    overflow-x: hidden;
+  }
+
+  .availability-table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  .availability-table th,
+  .availability-table td {
+    padding: 10px 5px;
+  }
+
+  .availability-table thead th:first-child,
+  .availability-table tbody th {
+    width: 34%;
+  }
+
+  .availability-table thead th:not(:first-child),
+  .availability-table td {
+    width: 22%;
+  }
+
+  .availability-table thead th {
+    font-size: 0.64rem;
+    letter-spacing: 0;
+  }
+
+  .availability-table tbody th {
+    font-size: 0.76rem;
+  }
+
+  .availability-option input {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .professional-modal {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .professional-modal__dialog {
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+  }
+
+  .professional-modal__header {
+    padding-top: max(18px, env(safe-area-inset-top));
+  }
+
+  .professional-modal__body {
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+  }
+
+  /* Reafirmar el espaciado compacto después de otros media queries. */
+  .availability-table th,
+  .availability-table td {
+    padding: 10px 5px;
+  }
+}
