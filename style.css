@@ -2266,6 +2266,45 @@ body.modal-open {
 
 @media (max-width:560px){
 
+.availability-table-wrapper {
+  overflow-x: hidden;
+}
+
+.availability-table {
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.availability-table th,
+.availability-table td {
+  padding: 10px 6px;
+}
+
+.availability-table thead th:first-child,
+.availability-table tbody th {
+  width: 34%;
+}
+
+.availability-table thead th:not(:first-child),
+.availability-table td {
+  width: 22%;
+}
+
+.availability-table thead th {
+  font-size: 0.66rem;
+  letter-spacing: 0;
+}
+
+.availability-table tbody th {
+  font-size: 0.76rem;
+}
+
+.availability-option input {
+  width: 18px;
+  height: 18px;
+}
+
 .footer{
     padding:22px 0 14px;
 }
