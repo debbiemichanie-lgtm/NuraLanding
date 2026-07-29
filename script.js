@@ -202,6 +202,7 @@ function updateCarousel() {
   );
 
   const firstCard = carouselItems[0];
+
   const cardWidth =
     firstCard.getBoundingClientRect().width;
 
@@ -344,6 +345,7 @@ function openProfessionalModal() {
     document.activeElement;
 
   professionalModal.classList.add("is-open");
+
   professionalModal.setAttribute(
     "aria-hidden",
     "false"
@@ -371,6 +373,7 @@ function closeProfessionalModal() {
   }
 
   professionalModal.classList.remove("is-open");
+
   professionalModal.setAttribute(
     "aria-hidden",
     "true"
@@ -402,7 +405,8 @@ closeModalButtons.forEach((button) => {
 });
 
 /*
-   Evitar que un clic dentro de la ventana cierre el modal.
+   Evitar que un clic dentro de la ventana
+   cierre el modal.
 */
 
 if (modalDialog) {
@@ -412,7 +416,8 @@ if (modalDialog) {
 }
 
 /*
-   Cerrar con Escape y mantener el foco dentro del modal.
+   Cerrar con Escape y mantener el foco
+   dentro del modal.
 */
 
 document.addEventListener("keydown", (event) => {
@@ -611,6 +616,7 @@ function showFormStatus(message, type) {
   }
 
   formStatus.textContent = message;
+
   formStatus.className =
     `form-status form-status--${type}`;
 }
@@ -1346,23 +1352,21 @@ async function submitProfessionalForm() {
     clearAllFormErrors();
 
     showFormStatus(
-      "¡Gracias por postularte! Recibimos tus datos correctamente y nos vamos a comunicar con vos a la brevedad.",
+      "¡Postulación enviada correctamente! Recibimos tus datos y nos vamos a comunicar con vos a la brevedad.",
       "success"
     );
 
-    formStatus?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+    /*
+      Volvemos únicamente el contenido interno
+      del modal al inicio.
 
-    formStatus?.setAttribute(
-      "tabindex",
-      "-1"
-    );
+      No usamos scrollIntoView porque puede mover
+      todo el cuadro y ocultar el título o la cruz.
+    */
 
-    formStatus?.focus({
-      preventScroll: true,
-    });
+    if (modalBody) {
+      modalBody.scrollTop = 0;
+    }
   } catch (error) {
     console.error(
       "No se pudo enviar el formulario:",
@@ -1374,13 +1378,19 @@ async function submitProfessionalForm() {
       "error"
     );
 
-    formStatus?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+    /*
+      También llevamos el cuerpo interno arriba
+      para que se vea el mensaje de error sin
+      mover el modal completo.
+    */
+
+    if (modalBody) {
+      modalBody.scrollTop = 0;
+    }
   } finally {
     submitButton.disabled = false;
     submitButton.classList.remove("is-loading");
+
     submitButton.textContent =
       "Enviar postulación";
   }
