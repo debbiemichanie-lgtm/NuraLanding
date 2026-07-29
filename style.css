@@ -939,6 +939,59 @@ section {
   max-width: 820px;
 }
 
+/* =====================================================
+   SUMATE A NURA - TARJETA BREVE
+===================================================== */
+
+.join-section {
+  padding-top: 44px;
+  padding-bottom: 44px;
+  background: var(--soft);
+}
+
+.join-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 46px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+
+  background: #ffffff;
+
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.join-card__content {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.join-card h2 {
+  margin: 0;
+
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.join-card .section-lead {
+  margin-bottom: 0;
+}
+
+.join-card__text {
+  margin: 16px auto 0;
+
+  color: var(--text);
+
+  line-height: 1.7;
+}
+
+.join-open-button {
+  margin-top: 26px;
+}
+
 .professional-form {
   max-width: 980px;
   margin: 0 auto;
@@ -1313,6 +1366,199 @@ section {
   color: var(--muted);
   font-size: 0.74rem;
   line-height: 1.5;
+}
+
+/* =====================================================
+   MODAL DEL FORMULARIO PROFESIONAL
+===================================================== */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.professional-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+}
+
+.professional-modal.is-open {
+  display: flex;
+}
+
+.professional-modal__overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  cursor: pointer;
+}
+
+.professional-modal__dialog {
+  position: relative;
+  z-index: 1;
+
+  width: min(980px, 100%);
+  max-height: calc(100vh - 48px);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 26px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 32px 90px rgba(15, 23, 42, 0.3),
+    0 10px 30px rgba(15, 23, 42, 0.16);
+
+  animation: professionalModalIn 0.24s ease;
+}
+
+@keyframes professionalModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.professional-modal__header {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 28px 32px 24px;
+
+  border-bottom: 1px solid var(--line);
+
+  background: #ffffff;
+}
+
+.professional-modal__header h2 {
+  margin: 0;
+
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.professional-modal__header p {
+  max-width: 640px;
+
+  margin: 10px 0 0;
+
+  color: var(--text);
+
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.professional-modal__header .eyebrow {
+  margin-bottom: 10px;
+}
+
+.professional-modal__close {
+  flex: 0 0 auto;
+
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: var(--ink);
+
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.professional-modal__close:hover {
+  border-color: var(--turq);
+
+  background: #e8fbf8;
+  color: var(--turq-dark);
+
+  transform: rotate(4deg);
+}
+
+.professional-modal__close:focus-visible {
+  outline: 3px solid rgba(80, 189, 189, 0.28);
+  outline-offset: 3px;
+}
+
+.professional-modal__body {
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  padding: 30px 32px 34px;
+
+  background: #f8fcfc;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--turq) #e8f3f3;
+}
+
+.professional-modal__body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.professional-modal__body::-webkit-scrollbar-track {
+  background: #e8f3f3;
+}
+
+.professional-modal__body::-webkit-scrollbar-thumb {
+  border: 2px solid #e8f3f3;
+  border-radius: 999px;
+
+  background: var(--turq);
+}
+
+.professional-modal .professional-form {
+  max-width: none;
+  margin: 0;
+
+  box-shadow: none;
 }
 
 /* =====================================================
@@ -2324,4 +2570,112 @@ section {
     width: 30px;
     height: 30px;
   }
+
+  /* =====================================================
+   RESPONSIVE DEL MODAL
+===================================================== */
+
+@media (max-width: 760px) {
+  .join-card {
+    padding: 32px 24px;
+  }
+
+  .professional-modal {
+    padding: 12px;
+  }
+
+  .professional-modal__dialog {
+    max-height: calc(100vh - 24px);
+    border-radius: 20px;
+  }
+
+  .professional-modal__header {
+    padding: 22px 20px 18px;
+  }
+
+  .professional-modal__header h2 {
+    padding-right: 8px;
+  }
+
+  .professional-modal__header p {
+    font-size: 0.84rem;
+  }
+
+  .professional-modal__close {
+    width: 38px;
+    height: 38px;
+
+    font-size: 1.55rem;
+  }
+
+  .professional-modal__body {
+    padding: 22px 18px 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .join-section {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .join-card {
+    padding: 28px 20px;
+
+    border-radius: 22px;
+  }
+
+  .join-card h2 {
+    font-size: 1.75rem;
+  }
+
+  .join-card__text {
+    font-size: 0.88rem;
+  }
+
+  .professional-modal {
+    padding: 0;
+  }
+
+  .professional-modal__dialog {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+
+    border: none;
+    border-radius: 0;
+  }
+
+  .professional-modal__header {
+    position: sticky;
+    top: 0;
+
+    padding: 18px 16px 15px;
+  }
+
+  .professional-modal__header .eyebrow {
+    margin-bottom: 7px;
+
+    font-size: 0.68rem;
+  }
+
+  .professional-modal__header h2 {
+    font-size: 1.55rem;
+  }
+
+  .professional-modal__header p {
+    margin-top: 7px;
+
+    font-size: 0.78rem;
+  }
+
+  .professional-modal__close {
+    width: 36px;
+    height: 36px;
+  }
+
+  .professional-modal__body {
+    padding: 18px 14px 28px;
+  }
+}
 }

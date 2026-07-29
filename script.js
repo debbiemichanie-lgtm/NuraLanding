@@ -1,5 +1,7 @@
 /*
+   =====================================================
    MENÚ MOBILE
+   =====================================================
 */
 
 const menuButton = document.querySelector(".menu-btn");
@@ -34,7 +36,9 @@ if (menuButton && nav) {
 
 
 /*
+   =====================================================
    AÑO AUTOMÁTICO
+   =====================================================
 */
 
 const year = document.querySelector("#year");
@@ -45,7 +49,9 @@ if (year) {
 
 
 /*
-   LINK ACTIVE SEGÚN LA SECCIÓN VISIBLE
+   =====================================================
+   LINK ACTIVO SEGÚN LA SECCIÓN VISIBLE
+   =====================================================
 */
 
 const sectionLinks = Array.from(
@@ -99,13 +105,13 @@ if ("IntersectionObserver" in window) {
   });
 }
 
-/* Marcar Inicio al cargar la página */
-
 setActiveLink("inicio");
 
 
 /*
+   =====================================================
    CARRUSEL DE PROFESIONALES
+   =====================================================
 */
 
 const carouselTrack = document.querySelector(
@@ -196,7 +202,6 @@ function updateCarousel() {
   );
 
   const firstCard = carouselItems[0];
-
   const cardWidth =
     firstCard.getBoundingClientRect().width;
 
@@ -258,7 +263,9 @@ if (nextButton) {
 
 
 /*
+   =====================================================
    RECALCULAR CARRUSEL RESPONSIVE
+   =====================================================
 */
 
 let resizeTimer;
@@ -274,7 +281,193 @@ window.addEventListener("resize", () => {
 
 
 /*
+   =====================================================
+   MODAL DEL FORMULARIO PROFESIONAL
+   =====================================================
+*/
+
+const professionalModal = document.querySelector(
+  "#professional-modal"
+);
+
+const openModalButton = document.querySelector(
+  "#open-professional-form"
+);
+
+const closeModalButtons = Array.from(
+  document.querySelectorAll("[data-modal-close]")
+);
+
+const modalDialog = professionalModal?.querySelector(
+  ".professional-modal__dialog"
+);
+
+const modalBody = professionalModal?.querySelector(
+  ".professional-modal__body"
+);
+
+let elementFocusedBeforeModal = null;
+
+function getModalFocusableElements() {
+  if (!professionalModal) {
+    return [];
+  }
+
+  return Array.from(
+    professionalModal.querySelectorAll(
+      [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled]):not([type="hidden"])',
+        'textarea:not([disabled])',
+        'select:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(",")
+    )
+  ).filter((element) => {
+    return element.offsetParent !== null;
+  });
+}
+
+function isProfessionalModalOpen() {
+  return Boolean(
+    professionalModal?.classList.contains("is-open")
+  );
+}
+
+function openProfessionalModal() {
+  if (!professionalModal) {
+    return;
+  }
+
+  elementFocusedBeforeModal =
+    document.activeElement;
+
+  professionalModal.classList.add("is-open");
+  professionalModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add("modal-open");
+
+  if (modalBody) {
+    modalBody.scrollTop = 0;
+  }
+
+  window.requestAnimationFrame(() => {
+    const closeButton =
+      professionalModal.querySelector(
+        ".professional-modal__close"
+      );
+
+    closeButton?.focus();
+  });
+}
+
+function closeProfessionalModal() {
+  if (!professionalModal) {
+    return;
+  }
+
+  professionalModal.classList.remove("is-open");
+  professionalModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove("modal-open");
+
+  if (
+    elementFocusedBeforeModal instanceof HTMLElement
+  ) {
+    elementFocusedBeforeModal.focus();
+  } else {
+    openModalButton?.focus();
+  }
+}
+
+if (openModalButton) {
+  openModalButton.addEventListener(
+    "click",
+    openProfessionalModal
+  );
+}
+
+closeModalButtons.forEach((button) => {
+  button.addEventListener(
+    "click",
+    closeProfessionalModal
+  );
+});
+
+/*
+   Evitar que un clic dentro de la ventana cierre el modal.
+*/
+
+if (modalDialog) {
+  modalDialog.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+}
+
+/*
+   Cerrar con Escape y mantener el foco dentro del modal.
+*/
+
+document.addEventListener("keydown", (event) => {
+  if (!isProfessionalModalOpen()) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeProfessionalModal();
+    return;
+  }
+
+  if (event.key !== "Tab") {
+    return;
+  }
+
+  const focusableElements =
+    getModalFocusableElements();
+
+  if (focusableElements.length === 0) {
+    event.preventDefault();
+    return;
+  }
+
+  const firstElement = focusableElements[0];
+
+  const lastElement =
+    focusableElements[
+      focusableElements.length - 1
+    ];
+
+  if (
+    event.shiftKey &&
+    document.activeElement === firstElement
+  ) {
+    event.preventDefault();
+    lastElement.focus();
+    return;
+  }
+
+  if (
+    !event.shiftKey &&
+    document.activeElement === lastElement
+  ) {
+    event.preventDefault();
+    firstElement.focus();
+  }
+});
+
+
+/*
+   =====================================================
    FORMULARIO DE PROFESIONALES
+   =====================================================
 */
 
 const professionalForm = document.querySelector(
@@ -332,7 +525,9 @@ const MAX_TOTAL_FILE_SIZE = 8 * 1024 * 1024;
 
 
 /*
-   FUNCIONES PARA MOSTRAR Y LIMPIAR ERRORES
+   =====================================================
+   MOSTRAR Y LIMPIAR ERRORES
+   =====================================================
 */
 
 function getFieldContainer(field) {
@@ -362,6 +557,7 @@ function showFieldError(field, message) {
 
   if (errorElement) {
     errorElement.textContent = message;
+    errorElement.classList.add("visible");
   }
 }
 
@@ -378,6 +574,7 @@ function clearFieldError(field) {
 
   if (errorElement) {
     errorElement.textContent = "";
+    errorElement.classList.remove("visible");
   }
 }
 
@@ -420,15 +617,24 @@ function showFormStatus(message, type) {
 
 
 /*
-   MENSAJES PERSONALIZADOS DE VALIDACIÓN
+   =====================================================
+   MENSAJES PERSONALIZADOS
+   =====================================================
 */
 
 function getValidationMessage(field) {
+  const label =
+    field
+      .closest(".form-field")
+      ?.querySelector("label");
+
   const fieldName =
-    field.previousElementSibling?.textContent
+    label?.childNodes?.[0]?.textContent?.trim() ||
+    label?.textContent
       ?.replace("*", "")
       .replace("Opcional", "")
-      .trim() || "Este campo";
+      .trim() ||
+    "Este campo";
 
   if (field.validity.valueMissing) {
     return `${fieldName} es obligatorio.`;
@@ -437,10 +643,6 @@ function getValidationMessage(field) {
   if (field.validity.typeMismatch) {
     if (field.type === "email") {
       return "Ingresá una dirección de correo electrónico válida.";
-    }
-
-    if (field.type === "url") {
-      return "Ingresá una dirección web válida.";
     }
 
     return "El formato ingresado no es válido.";
@@ -483,7 +685,9 @@ function getValidationMessage(field) {
 
 
 /*
+   =====================================================
    VALIDACIÓN DE CAMPOS INDIVIDUALES
+   =====================================================
 */
 
 function validateRegularField(field) {
@@ -503,11 +707,15 @@ function validateRegularField(field) {
 
 
 /*
-   VALIDACIÓN ESPECÍFICA DEL TELÉFONO
+   =====================================================
+   VALIDACIÓN DEL TELÉFONO
+   =====================================================
 */
 
 function validatePhone() {
-  const phoneInput = document.querySelector("#telefono");
+  const phoneInput = document.querySelector(
+    "#telefono"
+  );
 
   if (!phoneInput) {
     return true;
@@ -546,7 +754,9 @@ function validatePhone() {
 
 
 /*
+   =====================================================
    VALIDACIÓN DE MODALIDAD
+   =====================================================
 */
 
 function validateModality() {
@@ -583,7 +793,9 @@ modalityOptions.forEach((checkbox) => {
 
 
 /*
+   =====================================================
    FUNCIONAMIENTO DE LA DISPONIBILIDAD
+   =====================================================
 */
 
 availabilityRows.forEach((row) => {
@@ -606,6 +818,14 @@ availabilityRows.forEach((row) => {
         unavailableOption.checked = false;
       }
 
+      if (
+        row.querySelector(
+          'input[type="checkbox"]:checked'
+        )
+      ) {
+        row.classList.remove("has-error");
+      }
+
       clearGroupError(availabilityError);
     });
   });
@@ -622,6 +842,14 @@ availabilityRows.forEach((row) => {
           );
         }
 
+        if (
+          row.querySelector(
+            'input[type="checkbox"]:checked'
+          )
+        ) {
+          row.classList.remove("has-error");
+        }
+
         clearGroupError(availabilityError);
       }
     );
@@ -630,7 +858,9 @@ availabilityRows.forEach((row) => {
 
 
 /*
+   =====================================================
    VALIDACIÓN DE DISPONIBILIDAD
+   =====================================================
 */
 
 function validateAvailability() {
@@ -693,7 +923,9 @@ function validateAvailability() {
 
 
 /*
+   =====================================================
    VALIDACIÓN DE ARCHIVOS
+   =====================================================
 */
 
 function validateFile(
@@ -732,7 +964,7 @@ function validateFile(
   if (file.size > MAX_FILE_SIZE) {
     showFieldError(
       input,
-      `El archivo no puede superar los 5 MB.`
+      "El archivo no puede superar los 5 MB."
     );
 
     return false;
@@ -796,7 +1028,9 @@ if (cvFileInput) {
 
 
 /*
+   =====================================================
    VALIDACIÓN DEL CONSENTIMIENTO
+   =====================================================
 */
 
 function validateConsent() {
@@ -843,7 +1077,9 @@ if (consentCheckbox) {
 
 
 /*
+   =====================================================
    VALIDACIÓN EN TIEMPO REAL
+   =====================================================
 */
 
 if (professionalForm) {
@@ -884,7 +1120,9 @@ if (professionalForm) {
 
 
 /*
+   =====================================================
    LIMPIAR TODOS LOS ERRORES
+   =====================================================
 */
 
 function clearAllFormErrors() {
@@ -906,6 +1144,12 @@ function clearAllFormErrors() {
     });
 
   professionalForm
+    .querySelectorAll('[aria-invalid="true"]')
+    .forEach((element) => {
+      element.removeAttribute("aria-invalid");
+    });
+
+  professionalForm
     .querySelectorAll(".field-error")
     .forEach((element) => {
       element.textContent = "";
@@ -919,7 +1163,9 @@ function clearAllFormErrors() {
 
 
 /*
+   =====================================================
    VALIDAR EL FORMULARIO COMPLETO
+   =====================================================
 */
 
 function validateProfessionalForm() {
@@ -1005,7 +1251,9 @@ function validateProfessionalForm() {
 
 
 /*
+   =====================================================
    IR AL PRIMER CAMPO CON ERROR
+   =====================================================
 */
 
 function focusFirstFormError() {
@@ -1015,33 +1263,44 @@ function focusFirstFormError() {
 
   const firstInvalidField =
     professionalForm.querySelector(
-      [
-        '[aria-invalid="true"]',
-        ".availability-table tr.has-error input",
-        ".field-error.visible",
-      ].join(",")
+      '[aria-invalid="true"], .availability-table tr.has-error input'
     );
 
-  if (!firstInvalidField) {
+  if (firstInvalidField) {
+    firstInvalidField.focus({
+      preventScroll: true,
+    });
+
+    firstInvalidField.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+
     return;
   }
 
+  const firstVisibleError =
+    professionalForm.querySelector(
+      ".field-error.visible"
+    );
+
+  if (!firstVisibleError) {
+    return;
+  }
+
+  const formSection =
+    firstVisibleError.closest(".form-section");
+
   const fieldToFocus =
-    firstInvalidField.matches(
+    formSection?.querySelector(
       "input, textarea, select, button"
-    )
-      ? firstInvalidField
-      : firstInvalidField
-          .closest(".form-section")
-          ?.querySelector(
-            "input, textarea, select, button"
-          );
+    );
 
   fieldToFocus?.focus({
     preventScroll: true,
   });
 
-  firstInvalidField.scrollIntoView({
+  firstVisibleError.scrollIntoView({
     behavior: "smooth",
     block: "center",
   });
@@ -1049,7 +1308,9 @@ function focusFirstFormError() {
 
 
 /*
-   ENVIAR FORMULARIO A NETLIFY
+   =====================================================
+   ENVIAR EL FORMULARIO A NETLIFY
+   =====================================================
 */
 
 async function submitProfessionalForm() {
@@ -1093,6 +1354,15 @@ async function submitProfessionalForm() {
       behavior: "smooth",
       block: "center",
     });
+
+    formStatus?.setAttribute(
+      "tabindex",
+      "-1"
+    );
+
+    formStatus?.focus({
+      preventScroll: true,
+    });
   } catch (error) {
     console.error(
       "No se pudo enviar el formulario:",
@@ -1103,6 +1373,11 @@ async function submitProfessionalForm() {
       "No pudimos enviar la postulación. Revisá tu conexión e intentá nuevamente.",
       "error"
     );
+
+    formStatus?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   } finally {
     submitButton.disabled = false;
     submitButton.classList.remove("is-loading");
@@ -1113,7 +1388,9 @@ async function submitProfessionalForm() {
 
 
 /*
+   =====================================================
    EVENTO DE ENVÍO
+   =====================================================
 */
 
 if (professionalForm) {
@@ -1145,7 +1422,9 @@ if (professionalForm) {
 
 
 /*
+   =====================================================
    INICIALIZACIÓN
+   =====================================================
 */
 
 createCarouselDots();
