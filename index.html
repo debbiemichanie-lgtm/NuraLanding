@@ -169,7 +169,9 @@
           </h2>
 
           <p class="hero-text">
-            La primera plataforma digital especializada en el acompañamiento para personas con <strong>TCA</strong> (trastornos de la conducta alimentaria) ya está disponible. Encontrá herramientas de seguimiento emocional, contenido
+            La primera plataforma digital especializada en el acompañamiento para personas con
+            <span class="highlight">TCA</span>
+            (trastornos de la conducta alimentaria) ya está disponible. Encontrá herramientas de seguimiento emocional, contenido
             confiable, profesionales especializados y una comunidad cuidada
             para acompañarte todos los días.
           </p>
@@ -182,14 +184,14 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Empezar ahora
+              Entrar a la app
             </a>
 
             <a
               class="btn btn-secondary"
               href="#funciones"
             >
-              Conocer la app
+              Más información
             </a>
 
           </div>
@@ -529,7 +531,6 @@
 
     <section
       class="section professionals"
-      id="profesionales"
     >
 
       <div class="container professional-card">
@@ -1629,13 +1630,30 @@
                   <span aria-hidden="true">*</span>
                 </label>
 
-                <input
-                  id="titulo-profesional"
-                  name="titulo-profesional"
-                  type="file"
-                  required
-                  accept=".pdf,.jpg,.jpeg,.png"
-                />
+               <div class="custom-file">
+  <input
+    class="custom-file__input"
+    id="titulo-profesional"
+    name="titulo-profesional"
+    type="file"
+    required
+    accept=".pdf,.jpg,.jpeg,.png"
+  />
+
+  <label
+    class="custom-file__button"
+    for="titulo-profesional"
+  >
+    Seleccionar archivo
+  </label>
+
+  <span
+    class="custom-file__name"
+    data-file-name="titulo-profesional"
+  >
+    Ningún archivo seleccionado
+  </span>
+</div>
 
                 <small class="field-help">
                   Formatos permitidos: PDF, JPG o PNG.
@@ -1653,13 +1671,30 @@
                   <span aria-hidden="true">*</span>
                 </label>
 
-                <input
-                  id="cv"
-                  name="cv"
-                  type="file"
-                  required
-                  accept=".pdf,.doc,.docx"
-                />
+               <div class="custom-file">
+  <input
+    class="custom-file__input"
+    id="cv"
+    name="cv"
+    type="file"
+    required
+    accept=".pdf,.doc,.docx"
+  />
+
+  <label
+    class="custom-file__button"
+    for="cv"
+  >
+    Seleccionar archivo
+  </label>
+
+  <span
+    class="custom-file__name"
+    data-file-name="cv"
+  >
+    Ningún archivo seleccionado
+  </span>
+</div>
 
                 <small class="field-help">
                   Formatos permitidos: PDF, DOC o DOCX.
@@ -2143,7 +2178,7 @@
                 name="aclaraciones-de-disponibilidad"
                 rows="5"
                 maxlength="800"
-                placeholder="Ejemplo: los martes puedo atender únicamente a partir de las 15 h."
+                placeholder="Ejemplo: los martes puedo atender únicamente a partir de las 15 hs."
               ></textarea>
 
               <small class="field-help">

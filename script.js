@@ -110,179 +110,6 @@ setActiveLink("inicio");
 
 /*
    =====================================================
-   CARRUSEL DE PROFESIONALES
-   =====================================================
-*/
-
-const carouselTrack = document.querySelector(
-  ".carousel-track"
-);
-
-const carouselItems = Array.from(
-  document.querySelectorAll(".professional-item")
-);
-
-const previousButton = document.querySelector(
-  ".carousel-arrow--prev"
-);
-
-const nextButton = document.querySelector(
-  ".carousel-arrow--next"
-);
-
-const dotsContainer = document.querySelector(
-  ".carousel-dots"
-);
-
-let carouselIndex = 0;
-
-function visibleProfessionalCards() {
-  if (window.innerWidth <= 760) {
-    return 1;
-  }
-
-  if (window.innerWidth <= 980) {
-    return 2;
-  }
-
-  return 3;
-}
-
-function maxCarouselIndex() {
-  return Math.max(
-    0,
-    carouselItems.length - visibleProfessionalCards()
-  );
-}
-
-function createCarouselDots() {
-  if (!dotsContainer) {
-    return;
-  }
-
-  dotsContainer.innerHTML = "";
-
-  const totalPositions = maxCarouselIndex() + 1;
-
-  for (
-    let index = 0;
-    index < totalPositions;
-    index += 1
-  ) {
-    const dot = document.createElement("button");
-
-    dot.type = "button";
-    dot.className = "carousel-dot";
-
-    dot.setAttribute(
-      "aria-label",
-      `Mostrar grupo ${index + 1} de profesionales`
-    );
-
-    dot.addEventListener("click", () => {
-      carouselIndex = index;
-      updateCarousel();
-    });
-
-    dotsContainer.appendChild(dot);
-  }
-}
-
-function updateCarousel() {
-  if (
-    !carouselTrack ||
-    carouselItems.length === 0
-  ) {
-    return;
-  }
-
-  carouselIndex = Math.min(
-    carouselIndex,
-    maxCarouselIndex()
-  );
-
-  const firstCard = carouselItems[0];
-
-  const cardWidth =
-    firstCard.getBoundingClientRect().width;
-
-  const trackStyles =
-    window.getComputedStyle(carouselTrack);
-
-  const gap =
-    Number.parseFloat(
-      trackStyles.columnGap || trackStyles.gap
-    ) || 0;
-
-  const movement =
-    carouselIndex * (cardWidth + gap);
-
-  carouselTrack.style.transform =
-    `translateX(-${movement}px)`;
-
-  if (previousButton) {
-    previousButton.disabled =
-      carouselIndex === 0;
-  }
-
-  if (nextButton) {
-    nextButton.disabled =
-      carouselIndex >= maxCarouselIndex();
-  }
-
-  document
-    .querySelectorAll(".carousel-dot")
-    .forEach((dot, index) => {
-      dot.classList.toggle(
-        "active",
-        index === carouselIndex
-      );
-    });
-}
-
-if (previousButton) {
-  previousButton.addEventListener("click", () => {
-    carouselIndex = Math.max(
-      0,
-      carouselIndex - 1
-    );
-
-    updateCarousel();
-  });
-}
-
-if (nextButton) {
-  nextButton.addEventListener("click", () => {
-    carouselIndex = Math.min(
-      maxCarouselIndex(),
-      carouselIndex + 1
-    );
-
-    updateCarousel();
-  });
-}
-
-
-/*
-   =====================================================
-   RECALCULAR CARRUSEL RESPONSIVE
-   =====================================================
-*/
-
-let resizeTimer;
-
-window.addEventListener("resize", () => {
-  window.clearTimeout(resizeTimer);
-
-  resizeTimer = window.setTimeout(() => {
-    createCarouselDots();
-    updateCarousel();
-  }, 150);
-});
-
-
-/*
-   =====================================================
    MODAL DEL FORMULARIO PROFESIONAL
    =====================================================
 */
@@ -1032,6 +859,43 @@ if (cvFileInput) {
   );
 }
 
+/*
+   =====================================================
+   NOMBRES DE ARCHIVOS EN CASTELLANO
+   =====================================================
+*/
+
+const customFileInputs = Array.from(
+  document.querySelectorAll(".custom-file__input")
+);
+
+function updateCustomFileName(input) {
+  const nameElement = document.querySelector(
+    `[data-file-name="${input.id}"]`
+  );
+
+  if (!nameElement) {
+    return;
+  }
+
+  const selectedFile = input.files?.[0];
+
+  nameElement.textContent = selectedFile
+    ? selectedFile.name
+    : "Ningún archivo seleccionado";
+}
+
+function resetCustomFileNames() {
+  customFileInputs.forEach((input) => {
+    updateCustomFileName(input);
+  });
+}
+
+customFileInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    updateCustomFileName(input);
+  });
+});
 
 /*
    =====================================================
@@ -1349,6 +1213,7 @@ async function submitProfessionalForm() {
     }
 
     professionalForm.reset();
+    resetCustomFileNames();
     clearAllFormErrors();
 
     showFormStatus(
@@ -1433,9 +1298,314 @@ if (professionalForm) {
 
 /*
    =====================================================
-   INICIALIZACIÓN
+   CARRUSEL DE PROFESIONALES: FLECHAS, PUNTOS Y SWIPE
    =====================================================
 */
 
-createCarouselDots();
-updateCarousel();
+const carousel = document.querySelector(".carousel");
+
+const carouselViewport = document.querySelector(
+  ".carousel-viewport"
+);
+
+const carouselTrack = document.querySelector(
+  ".carousel-track"
+);
+
+const carouselCards = Array.from(
+  document.querySelectorAll(".professional-item")
+);
+
+const carouselPreviousButton = document.querySelector(
+  ".carousel-arrow--prev"
+);
+
+const carouselNextButton = document.querySelector(
+  ".carousel-arrow--next"
+);
+
+const carouselDotsContainer = document.querySelector(
+  ".carousel-dots"
+);
+
+if (
+  carousel &&
+  carouselViewport &&
+  carouselTrack &&
+  carouselCards.length > 0 &&
+  carouselPreviousButton &&
+  carouselNextButton &&
+  carouselDotsContainer
+) {
+  let currentCarouselIndex = 0;
+
+  let startX = 0;
+  let currentX = 0;
+
+  let isDragging = false;
+  let activePointerId = null;
+
+  let carouselResizeTimer = null;
+
+  function visibleCarouselCards() {
+    if (window.innerWidth <= 700) {
+      return 1;
+    }
+
+    if (window.innerWidth <= 1050) {
+      return 2;
+    }
+
+    return 3;
+  }
+
+  function maximumCarouselIndex() {
+    return Math.max(
+      0,
+      carouselCards.length - visibleCarouselCards()
+    );
+  }
+
+  function carouselCardStep() {
+    const firstCard = carouselCards[0];
+
+    if (!firstCard) {
+      return 0;
+    }
+
+    const cardWidth =
+      firstCard.getBoundingClientRect().width;
+
+    const trackStyles =
+      window.getComputedStyle(carouselTrack);
+
+    const gap =
+      Number.parseFloat(
+        trackStyles.columnGap || trackStyles.gap
+      ) || 0;
+
+    return cardWidth + gap;
+  }
+
+  function createCarouselDots() {
+    carouselDotsContainer.innerHTML = "";
+
+    const totalPositions =
+      maximumCarouselIndex() + 1;
+
+    for (
+      let index = 0;
+      index < totalPositions;
+      index += 1
+    ) {
+      const dot = document.createElement("button");
+
+      dot.type = "button";
+      dot.className = "carousel-dot";
+
+      dot.setAttribute(
+        "aria-label",
+        `Ir al grupo ${index + 1} de profesionales`
+      );
+
+      dot.addEventListener("click", () => {
+        currentCarouselIndex = index;
+        updateCarousel();
+      });
+
+      carouselDotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateCarousel({ animate = true } = {}) {
+    currentCarouselIndex = Math.max(
+      0,
+      Math.min(
+        currentCarouselIndex,
+        maximumCarouselIndex()
+      )
+    );
+
+    carouselTrack.classList.toggle(
+      "is-dragging",
+      !animate
+    );
+
+    const position =
+      -(currentCarouselIndex * carouselCardStep());
+
+    carouselTrack.style.transform =
+      `translate3d(${position}px, 0, 0)`;
+
+    carouselPreviousButton.disabled =
+      currentCarouselIndex === 0;
+
+    carouselNextButton.disabled =
+      currentCarouselIndex === maximumCarouselIndex();
+
+    const dots =
+      carouselDotsContainer.querySelectorAll(
+        ".carousel-dot"
+      );
+
+    dots.forEach((dot, index) => {
+      const isActive =
+        index === currentCarouselIndex;
+
+      dot.classList.toggle(
+        "active",
+        isActive
+      );
+
+      dot.setAttribute(
+        "aria-current",
+        isActive ? "true" : "false"
+      );
+    });
+  }
+
+  carouselPreviousButton.addEventListener(
+    "click",
+    () => {
+      currentCarouselIndex -= 1;
+      updateCarousel();
+    }
+  );
+
+  carouselNextButton.addEventListener(
+    "click",
+    () => {
+      currentCarouselIndex += 1;
+      updateCarousel();
+    }
+  );
+
+  carouselViewport.addEventListener(
+    "pointerdown",
+    (event) => {
+      if (
+        event.pointerType === "mouse" &&
+        event.button !== 0
+      ) {
+        return;
+      }
+
+      isDragging = true;
+
+      activePointerId = event.pointerId;
+
+      startX = event.clientX;
+      currentX = event.clientX;
+
+      carouselViewport.classList.add(
+        "is-dragging"
+      );
+
+      carouselTrack.classList.add(
+        "is-dragging"
+      );
+
+      carouselViewport.setPointerCapture(
+        event.pointerId
+      );
+    }
+  );
+
+  carouselViewport.addEventListener(
+    "pointermove",
+    (event) => {
+      if (
+        !isDragging ||
+        event.pointerId !== activePointerId
+      ) {
+        return;
+      }
+
+      currentX = event.clientX;
+
+      const dragDistance =
+        currentX - startX;
+
+      const basePosition =
+        -(currentCarouselIndex * carouselCardStep());
+
+      carouselTrack.style.transform =
+        `translate3d(${basePosition + dragDistance}px, 0, 0)`;
+    }
+  );
+
+  function finishCarouselDrag(event) {
+    if (!isDragging) {
+      return;
+    }
+
+    if (
+      event.pointerId !== undefined &&
+      activePointerId !== null &&
+      event.pointerId !== activePointerId
+    ) {
+      return;
+    }
+
+    const movement =
+      currentX - startX;
+
+    const swipeThreshold = Math.min(
+      carouselCardStep() * 0.2,
+      70
+    );
+
+    if (movement < -swipeThreshold) {
+      currentCarouselIndex += 1;
+    } else if (movement > swipeThreshold) {
+      currentCarouselIndex -= 1;
+    }
+
+    isDragging = false;
+    activePointerId = null;
+
+    carouselViewport.classList.remove(
+      "is-dragging"
+    );
+
+    carouselTrack.classList.remove(
+      "is-dragging"
+    );
+
+    updateCarousel();
+  }
+
+  carouselViewport.addEventListener(
+    "pointerup",
+    finishCarouselDrag
+  );
+
+  carouselViewport.addEventListener(
+    "pointercancel",
+    finishCarouselDrag
+  );
+
+  carouselViewport.addEventListener(
+    "lostpointercapture",
+    finishCarouselDrag
+  );
+
+  window.addEventListener("resize", () => {
+    window.clearTimeout(carouselResizeTimer);
+
+    carouselResizeTimer =
+      window.setTimeout(() => {
+        createCarouselDots();
+
+        updateCarousel({
+          animate: false
+        });
+      }, 150);
+  });
+
+  createCarouselDots();
+
+  updateCarousel({
+    animate: false
+  });
+}
