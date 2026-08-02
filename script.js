@@ -1348,11 +1348,11 @@ if (
   let carouselResizeTimer = null;
 
   function visibleCarouselCards() {
-    if (window.innerWidth <= 700) {
+    if (window.innerWidth <= 820) {
       return 1;
     }
 
-    if (window.innerWidth <= 1050) {
+    if (window.innerWidth <= 1100) {
       return 2;
     }
 
