@@ -820,6 +820,7 @@ section {
     pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+  -webkit-user-select: none;
 }
 
 .professional-item__body {
@@ -1304,6 +1305,15 @@ section {
   border: 1px solid #b6ebe5 !important;
   border-radius: 16px;
   background: #f4fbfb;
+  display: grid;
+}
+
+.consent-item {
+  padding: 16px 0;
+}
+
+.consent-item + .consent-item {
+  border-top: 1px solid #cfe9e7;
 }
 
 .consent-section legend {
@@ -3173,5 +3183,671 @@ html {
   .availability-table th,
   .availability-table td {
     padding: 10px 5px;
+  }
+}
+
+/* =====================================================
+   ACCESIBILIDAD DEL FORMULARIO
+===================================================== */
+
+.professional-form,
+.professional-modal__header p,
+.form-section-description,
+.form-field label,
+.form-label,
+.field-help,
+.field-error,
+.check-option span,
+.consent-option span,
+.required-note,
+.custom-file__button,
+.custom-file__name {
+  font-size: 14px;
+}
+
+.form-field input,
+.form-field textarea,
+.professional-form select {
+  font-size: 14px;
+}
+
+.field-help,
+.field-error {
+  line-height: 1.55;
+}
+
+.field-error[role="alert"] {
+  min-height: 1.2em;
+}
+
+.option-group[aria-invalid="true"] {
+  padding: 10px;
+
+  border: 2px solid var(--danger);
+  border-radius: 14px;
+
+  background: #fff8f8;
+}
+
+.check-option input[aria-invalid="true"],
+.availability-option input[aria-invalid="true"],
+.consent-option input[aria-invalid="true"] {
+  outline: 3px solid rgba(239, 83, 80, 0.25);
+  outline-offset: 3px;
+}
+
+/* =====================================================
+   DISPONIBILIDAD Y HORARIOS EXACTOS
+===================================================== */
+
+.availability-modality-note {
+  margin: -10px 0 20px;
+  padding: 12px 14px;
+
+  border-left: 4px solid var(--turq);
+  border-radius: 10px;
+
+  background: #eefafa;
+  color: var(--text);
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.availability-detail-row td {
+  padding: 0 14px 14px !important;
+  background: #fbfefe;
+}
+
+.availability-detail-fields {
+  display: grid;
+  gap: 12px;
+
+  padding: 14px;
+
+  border: 1px solid #cfe9e7;
+  border-radius: 14px;
+
+  background: #f4fbfb;
+}
+
+.exact-time-group {
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+.exact-time-group + .exact-time-group {
+  padding-top: 12px;
+  border-top: 1px solid #d7ecec;
+}
+
+.exact-time-group legend {
+  width: 100%;
+
+  margin: 0 0 10px;
+  padding: 0;
+
+  color: var(--turq-dark);
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.exact-time-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 180px));
+  gap: 12px;
+}
+
+.exact-time-field {
+  gap: 6px;
+}
+
+.exact-time-field label {
+  font-size: 14px;
+}
+
+.exact-time-field input[type="time"] {
+  min-height: 46px;
+
+  padding: 9px 12px;
+
+  font-size: 16px;
+}
+
+.availability-unavailable-note {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.consent-option--privacy {
+  margin-top: 18px;
+  padding-top: 18px;
+
+  border-top: 1px solid #cfe9e7;
+}
+
+.consent-option a {
+  color: var(--turq-dark);
+  font-weight: 700;
+  text-underline-offset: 2px;
+}
+
+.consent-option a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 560px) {
+  .exact-time-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .availability-detail-row td {
+    padding: 0 6px 10px !important;
+  }
+
+  .availability-detail-fields {
+    padding: 10px;
+  }
+
+  .professional-form,
+  .professional-modal__header p,
+  .form-section-description,
+  .form-field label,
+  .form-label,
+  .field-help,
+  .field-error,
+  .check-option span,
+  .consent-option span,
+  .required-note,
+  .custom-file__button,
+  .custom-file__name {
+    font-size: 14px;
+  }
+}
+
+/* =====================================================
+   HORARIOS EXACTOS MÁS COMPACTOS
+===================================================== */
+
+.availability-detail-row td {
+  padding: 0 10px 10px !important;
+}
+
+.availability-detail-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfe9e7;
+  border-radius: 12px;
+  background: #f5fbfb;
+}
+
+.exact-time-group {
+  min-width: 0;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #d7ecec;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.exact-time-group + .exact-time-group {
+  margin-top: 0;
+  padding-top: 10px;
+  border-top: 1px solid #d7ecec;
+}
+
+.exact-time-group legend {
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 0;
+  color: var(--turq-dark);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.exact-time-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exact-time-field {
+  width: 135px;
+  gap: 4px;
+}
+
+.exact-time-field label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.exact-time-field input[type="time"] {
+  width: 135px;
+  min-height: 38px;
+  padding: 6px 9px;
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.exact-time-field .field-error {
+  font-size: 11px;
+}
+
+.availability-unavailable-note {
+  margin: 0;
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .availability-detail-fields {
+    padding: 9px;
+  }
+
+  .exact-time-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  .exact-time-field {
+    width: auto;
+  }
+
+  .exact-time-field input[type="time"] {
+    width: 100%;
+    min-height: 40px;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+}
+
+/* =====================================================
+   BOTONES DE TÉRMINOS Y PRIVACIDAD
+===================================================== */
+
+.legal-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--turq-dark);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.legal-link:hover {
+  color: var(--ink);
+}
+
+.legal-link:focus-visible {
+  outline: 3px solid rgba(80, 189, 189, 0.3);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* =====================================================
+   MODAL LEGAL
+===================================================== */
+
+body.legal-modal-open {
+  overflow: hidden;
+}
+
+.legal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.legal-modal.is-open {
+  display: flex;
+}
+
+.legal-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.legal-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(700px, 100%);
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #dceaea;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.32);
+  animation: legalModalIn 0.22s ease;
+}
+
+@keyframes legalModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.legal-modal__header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.legal-modal__header h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.legal-modal__close {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #f4fbfb;
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.legal-modal__close:hover {
+  border-color: var(--turq);
+  background: #e8fbf8;
+  color: var(--turq-dark);
+}
+
+.legal-modal__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 22px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: var(--turq) #e8f3f3;
+}
+
+.legal-modal__body::-webkit-scrollbar {
+  width: 9px;
+}
+
+.legal-modal__body::-webkit-scrollbar-track {
+  background: #e8f3f3;
+}
+
+.legal-modal__body::-webkit-scrollbar-thumb {
+  border: 2px solid #e8f3f3;
+  border-radius: 999px;
+  background: var(--turq);
+}
+
+.legal-document > :first-child {
+  margin-top: 0;
+}
+
+.legal-document h3 {
+  margin: 24px 0 8px;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.legal-document p {
+  margin: 0 0 12px;
+}
+
+.legal-document ul {
+  margin: 8px 0 16px;
+  padding-left: 22px;
+}
+
+.legal-document li + li {
+  margin-top: 6px;
+}
+
+.legal-modal__footer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 22px;
+  border-top: 1px solid var(--line);
+  background: #f8fcfc;
+}
+
+.legal-modal__footer .btn {
+  min-width: 110px;
+}
+
+/* El modal legal queda por encima del formulario */
+.professional-modal {
+  z-index: 3000;
+}
+
+.legal-modal {
+  z-index: 5000;
+}
+
+@media (max-width: 560px) {
+  .legal-modal {
+    padding: 10px;
+  }
+
+  .legal-modal__dialog {
+    max-height: calc(100vh - 20px);
+    max-height: calc(100dvh - 20px);
+    border-radius: 18px;
+  }
+
+  .legal-modal__header {
+    padding: 17px 16px;
+  }
+
+  .legal-modal__header h2 {
+    font-size: 1.15rem;
+  }
+
+  .legal-modal__body {
+    padding: 17px 16px;
+    font-size: 14px;
+  }
+
+  .legal-modal__footer {
+    padding: 12px 16px;
+  }
+
+  .legal-modal__footer .btn {
+    width: 100%;
+  }
+}
+
+/* =====================================================
+   MÚLTIPLES RANGOS DE HORARIOS
+===================================================== */
+
+.schedule-range {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr)
+    auto;
+  align-items: end;
+  gap: 8px;
+}
+
+.exact-time-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.exact-time-field input[type="time"] {
+  width: 100%;
+  min-width: 0;
+}
+
+.schedule-range .exact-time-field {
+  width: 100%;
+}
+
+
+.schedule-range__add,
+.schedule-range__remove {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.schedule-range__add {
+  width: fit-content;
+  margin-top: 9px;
+  padding: 5px 0;
+  color: var(--turq-dark);
+}
+
+.schedule-range__add:hover {
+  text-decoration: underline;
+}
+
+.schedule-range__remove {
+  min-height: 38px;
+  padding: 6px 8px;
+  color: #c2413a;
+}
+
+.schedule-range__remove:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+  .availability-detail-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .schedule-range {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+  }
+
+  .schedule-range__remove {
+    grid-column: 1 / -1;
+    justify-self: end;
+    min-height: auto;
+    padding: 2px 0;
+  }
+}
+
+/* =====================================================
+   CORRECCIÓN DE LA LISTA "CÓMO FUNCIONA"
+===================================================== */
+
+.steps-list {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  width: 100%;
+  min-width: 0;
+}
+
+.step > div {
+  min-width: 0;
+}
+
+.step h3,
+.step p {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.feature-grid,
+.steps-list,
+.carousel-track {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-card,
+.step,
+.professional-item {
+  list-style: none;
+}
+
+@media (max-width: 480px) {
+  .steps-list {
+    width: 100%;
+  }
+
+  .step {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 12px;
+    padding: 20px 0;
+  }
+
+  .step > div {
+    width: 100%;
+  }
+
+  .step h3 {
+    font-size: 1rem;
+  }
+
+  .step p {
+    font-size: 0.86rem;
+    line-height: 1.6;
   }
 }
