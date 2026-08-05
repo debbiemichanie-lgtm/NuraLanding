@@ -1244,6 +1244,81 @@ function normalizeForId(value) {
     );
 }
 
+
+/*
+   Convertir una hora de formato 24 horas
+   a un texto con AM o PM.
+*/
+
+function formatTimeToAmPm(time) {
+  if (!time) {
+    return "";
+  }
+
+  const [hoursString, minutes] =
+    time.split(":");
+
+  const hours =
+    Number(hoursString);
+
+  const period =
+    hours >= 12 ? "PM" : "AM";
+
+  const formattedHours =
+    hours % 12 || 12;
+
+  return `${formattedHours}:${minutes} ${period}`;
+}
+
+
+/*
+   Obtener los límites permitidos del período.
+*/
+
+function getPeriodLimits(checkbox) {
+  const periodValue =
+    checkbox?.value;
+
+  if (periodValue === "Mañana") {
+    return {
+      minTime:
+        checkbox.dataset.timeMin ||
+        "07:00",
+
+      maxTime:
+        checkbox.dataset.timeMax ||
+        "12:00",
+
+      minLabel:
+        checkbox.dataset.timeMinLabel ||
+        "7:00 AM",
+
+      maxLabel:
+        checkbox.dataset.timeMaxLabel ||
+        "12:00 PM",
+    };
+  }
+
+  return {
+    minTime:
+      checkbox?.dataset.timeMin ||
+      "12:00",
+
+    maxTime:
+      checkbox?.dataset.timeMax ||
+      "20:00",
+
+    minLabel:
+      checkbox?.dataset.timeMinLabel ||
+      "12:00 PM",
+
+    maxLabel:
+      checkbox?.dataset.timeMaxLabel ||
+      "8:00 PM",
+  };
+}
+
+
 function getOrCreateDetailRow(row) {
   let detailRow =
     row.nextElementSibling;
@@ -1288,6 +1363,11 @@ function getOrCreateDetailRow(row) {
   return detailRow;
 }
 
+
+/*
+   Crear un campo de horario exacto.
+*/
+
 function createExactTimeInput({
   day,
   period,
@@ -1295,12 +1375,19 @@ function createExactTimeInput({
   boundary,
   label,
   defaultValue,
+  minTime,
+  maxTime,
+  minLabel,
+  maxLabel,
 }) {
   const id =
     `${day}-${period}-${rangeId}-${boundary}`;
 
   const errorId =
     `${id}-error`;
+
+  const helpId =
+    `${id}-help`;
 
   const field =
     document.createElement("div");
@@ -1321,10 +1408,26 @@ function createExactTimeInput({
   input.name = id;
   input.type = "time";
   input.required = true;
+
+  input.min = minTime;
+  input.max = maxTime;
+
   input.value = defaultValue || "";
 
   input.dataset.timeBoundary =
     boundary;
+
+  input.dataset.allowedMin =
+    minTime;
+
+  input.dataset.allowedMax =
+    maxTime;
+
+  input.dataset.allowedMinLabel =
+    minLabel;
+
+  input.dataset.allowedMaxLabel =
+    maxLabel;
 
   input.setAttribute(
     "aria-invalid",
@@ -1333,8 +1436,17 @@ function createExactTimeInput({
 
   input.setAttribute(
     "aria-describedby",
-    errorId
+    `${helpId} ${errorId}`
   );
+
+  const help =
+    document.createElement("small");
+
+  help.id = helpId;
+  help.className = "field-help";
+
+  help.textContent =
+    `Horario permitido: ${minLabel} a ${maxLabel}.`;
 
   const error =
     document.createElement("small");
@@ -1350,6 +1462,7 @@ function createExactTimeInput({
   field.append(
     fieldLabel,
     input,
+    help,
     error
   );
 
@@ -1358,6 +1471,11 @@ function createExactTimeInput({
     input,
   };
 }
+
+
+/*
+   Validar un rango de horario.
+*/
 
 function validateScheduleRange(range) {
   const start =
@@ -1377,12 +1495,34 @@ function validateScheduleRange(range) {
   clearFieldError(start);
   clearFieldError(end);
 
+  const minTime =
+    start.dataset.allowedMin;
+
+  const maxTime =
+    start.dataset.allowedMax;
+
+  const minLabel =
+    start.dataset.allowedMinLabel;
+
+  const maxLabel =
+    start.dataset.allowedMaxLabel;
+
   let isValid = true;
 
   if (!start.value) {
     showFieldError(
       start,
       "Indicá la hora de inicio."
+    );
+
+    isValid = false;
+  } else if (
+    start.value < minTime ||
+    start.value > maxTime
+  ) {
+    showFieldError(
+      start,
+      `La hora de inicio debe estar entre ${minLabel} y ${maxLabel}.`
     );
 
     isValid = false;
@@ -1395,11 +1535,25 @@ function validateScheduleRange(range) {
     );
 
     isValid = false;
+  } else if (
+    end.value < minTime ||
+    end.value > maxTime
+  ) {
+    showFieldError(
+      end,
+      `La hora de finalización debe estar entre ${minLabel} y ${maxLabel}.`
+    );
+
+    isValid = false;
   }
 
   if (
     start.value &&
     end.value &&
+    start.value >= minTime &&
+    start.value <= maxTime &&
+    end.value >= minTime &&
+    end.value <= maxTime &&
     end.value <= start.value
   ) {
     showFieldError(
@@ -1412,6 +1566,7 @@ function validateScheduleRange(range) {
 
   return isValid;
 }
+
 
 function updateRemoveButtons(group) {
   const ranges = Array.from(
@@ -1433,6 +1588,11 @@ function updateRemoveButtons(group) {
   });
 }
 
+
+/*
+   Crear un rango Desde / Hasta.
+*/
+
 function createScheduleRange({
   day,
   period,
@@ -1440,6 +1600,10 @@ function createScheduleRange({
   startValue,
   endValue,
   group,
+  minTime,
+  maxTime,
+  minLabel,
+  maxLabel,
 }) {
   const range =
     document.createElement("div");
@@ -1458,6 +1622,10 @@ function createScheduleRange({
       boundary: "desde",
       label: "Desde",
       defaultValue: startValue,
+      minTime,
+      maxTime,
+      minLabel,
+      maxLabel,
     });
 
   const endField =
@@ -1468,9 +1636,40 @@ function createScheduleRange({
       boundary: "hasta",
       label: "Hasta",
       defaultValue: endValue,
+      minTime,
+      maxTime,
+      minLabel,
+      maxLabel,
     });
 
+  /*
+     Al cambiar la hora inicial, el campo
+     final no podrá elegir una hora anterior.
+  */
+
   startField.input.addEventListener(
+    "change",
+    () => {
+      endField.input.min =
+        startField.input.value ||
+        minTime;
+
+      validateScheduleRange(range);
+    }
+  );
+
+  startField.input.addEventListener(
+    "input",
+    () => {
+      endField.input.min =
+        startField.input.value ||
+        minTime;
+
+      validateScheduleRange(range);
+    }
+  );
+
+  endField.input.addEventListener(
     "change",
     () => {
       validateScheduleRange(range);
@@ -1478,7 +1677,7 @@ function createScheduleRange({
   );
 
   endField.input.addEventListener(
-    "change",
+    "input",
     () => {
       validateScheduleRange(range);
     }
@@ -1516,6 +1715,12 @@ function createScheduleRange({
 
   return range;
 }
+
+
+/*
+   Guardar temporalmente los rangos cuando
+   se vuelve a dibujar la disponibilidad.
+*/
 
 function getExistingRanges(existingDetail) {
   const rangesByPeriod = {};
@@ -1555,6 +1760,12 @@ function getExistingRanges(existingDetail) {
 
   return rangesByPeriod;
 }
+
+
+/*
+   Dibujar los horarios seleccionados
+   para cada día.
+*/
 
 function renderDayTimeFields(row) {
   const day =
@@ -1628,6 +1839,13 @@ function renderDayTimeFields(row) {
       const period =
         normalizeForId(periodValue);
 
+      const {
+        minTime,
+        maxTime,
+        minLabel,
+        maxLabel,
+      } = getPeriodLimits(checkbox);
+
       const group =
         document.createElement(
           "fieldset"
@@ -1639,6 +1857,12 @@ function renderDayTimeFields(row) {
       group.dataset.period =
         period;
 
+      group.dataset.timeMin =
+        minTime;
+
+      group.dataset.timeMax =
+        maxTime;
+
       const legend =
         document.createElement(
           "legend"
@@ -1649,13 +1873,18 @@ function renderDayTimeFields(row) {
         day.slice(1);
 
       legend.textContent =
-        `${readableDay} por la ${periodLabels[periodValue]}`;
+        `${readableDay} por la ${periodLabels[periodValue]} (${minLabel} a ${maxLabel})`;
 
       const rangesContainer =
         document.createElement("div");
 
       rangesContainer.className =
         "schedule-ranges";
+
+      /*
+         Valores iniciales dentro de los
+         límites permitidos.
+      */
 
       const defaultStart =
         periodValue === "Mañana"
@@ -1664,15 +1893,38 @@ function renderDayTimeFields(row) {
 
       const defaultEnd =
         periodValue === "Mañana"
-          ? "13:00"
+          ? "12:00"
           : "18:00";
 
       const savedRanges =
         existingRanges[period];
 
+      const validSavedRanges =
+        savedRanges?.map(
+          (savedRange) => {
+            const validStart =
+              savedRange.start >= minTime &&
+              savedRange.start <= maxTime
+                ? savedRange.start
+                : "";
+
+            const validEnd =
+              savedRange.end >= minTime &&
+              savedRange.end <= maxTime
+                ? savedRange.end
+                : "";
+
+            return {
+              ...savedRange,
+              start: validStart,
+              end: validEnd,
+            };
+          }
+        );
+
       const initialRanges =
-        savedRanges?.length
-          ? savedRanges
+        validSavedRanges?.length
+          ? validSavedRanges
           : [
               {
                 rangeId: "1",
@@ -1699,6 +1951,10 @@ function renderDayTimeFields(row) {
                 savedRange.end,
 
               group,
+              minTime,
+              maxTime,
+              minLabel,
+              maxLabel,
             });
 
           rangesContainer.appendChild(
@@ -1720,7 +1976,7 @@ function renderDayTimeFields(row) {
 
       addRangeButton.setAttribute(
         "aria-label",
-        `Agregar otro horario para ${readableDay} por la ${periodLabels[periodValue]}`
+        `Agregar otro horario para ${readableDay} por la ${periodLabels[periodValue]}, entre ${minLabel} y ${maxLabel}`
       );
 
       addRangeButton.addEventListener(
@@ -1754,6 +2010,10 @@ function renderDayTimeFields(row) {
               startValue: "",
               endValue: "",
               group,
+              minTime,
+              maxTime,
+              minLabel,
+              maxLabel,
             });
 
           rangesContainer.appendChild(
@@ -1782,6 +2042,12 @@ function renderDayTimeFields(row) {
     }
   );
 }
+
+
+/*
+   Validar todos los rangos de horario
+   existentes en el formulario.
+*/
 
 function validateExactAvailabilityTimes() {
   const ranges = Array.from(

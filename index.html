@@ -1842,540 +1842,599 @@
                DISPONIBILIDAD
           ========================================== -->
 
-          <fieldset class="form-section availability-section">
-
-            <legend>
-              Disponibilidad y horarios
-            </legend>
-
-            <p
-              class="form-section-description"
-              id="availability-description"
-            >
-              Indicá tu disponibilidad de lunes a sábado. Al seleccionar
-              “Mañana” o “Tarde” aparecerán campos para informar el horario
-              exacto de inicio y finalización.
-            </p>
-
-            <p class="availability-modality-note">
-              Los horarios informados se aplicarán tanto a la modalidad
-              presencial como virtual. Si trabajás con horarios distintos
-              según la modalidad, aclaralo en el campo de observaciones.
-            </p>
-
-
-            <div class="availability-table-wrapper">
-
-              <table
-                class="availability-table"
-                aria-describedby="availability-description availability-error"
-              >
-
-                <thead>
-
-                  <tr>
-                    <th scope="col">Día</th>
-                    <th scope="col">Mañana</th>
-                    <th scope="col">Tarde</th>
-                    <th scope="col">No disponible</th>
-                  </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                  <!-- LUNES -->
-
-                  <tr data-day="lunes">
-
-                    <th scope="row">
-                      Lunes
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="lunes"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Lunes por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="lunes"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Lunes por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="lunes"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los lunes
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-
-                  <!-- MARTES -->
-
-                  <tr data-day="martes">
-
-                    <th scope="row">
-                      Martes
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="martes"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Martes por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="martes"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Martes por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="martes"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los martes
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-
-                  <!-- MIÉRCOLES -->
-
-                  <tr data-day="miercoles">
-
-                    <th scope="row">
-                      Miércoles
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="miercoles"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Miércoles por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="miercoles"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Miércoles por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="miercoles"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los miércoles
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-
-                  <!-- JUEVES -->
-
-                  <tr data-day="jueves">
-
-                    <th scope="row">
-                      Jueves
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="jueves"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Jueves por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="jueves"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Jueves por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="jueves"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los jueves
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-
-                  <!-- VIERNES -->
-
-                  <tr data-day="viernes">
-
-                    <th scope="row">
-                      Viernes
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="viernes"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Viernes por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="viernes"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Viernes por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="viernes"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los viernes
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-
-                  <!-- SÁBADO -->
-
-                  <tr data-day="sabado">
-
-                    <th scope="row">
-                      Sábado
-                    </th>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="sabado"
-                          value="Mañana"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Sábado por la mañana
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="sabado"
-                          value="Tarde"
-                          data-period="available"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          Sábado por la tarde
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                    <td>
-
-                      <label class="availability-option">
-
-                        <input
-                          type="checkbox"
-                          name="sabado"
-                          value="No disponible"
-                          data-period="unavailable"
-                          aria-invalid="false"
-                          aria-describedby="availability-description availability-error"
-                        />
-
-                        <span class="visually-hidden">
-                          No disponible los sábados
-                        </span>
-
-                      </label>
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-
-            <small
-              class="field-error availability-error"
-              id="availability-error"
-              role="alert"
-            ></small>
-
-
-            <div class="form-field form-field-full">
-
-              <label for="disponibilidad-aclaraciones">
-                Observaciones sobre modalidad y disponibilidad
-              </label>
-
-              <textarea
-                id="disponibilidad-aclaraciones"
-                name="aclaraciones-de-disponibilidad"
-                rows="5"
-                maxlength="800"
+<fieldset class="form-section availability-section">
+
+  <legend>
+    Disponibilidad y horarios
+  </legend>
+
+  <p
+    class="form-section-description"
+    id="availability-description"
+  >
+    Indicá tu disponibilidad de lunes a sábado. Al seleccionar
+    “Mañana” o “Tarde” aparecerán campos para informar el horario
+    exacto de inicio y finalización.
+  </p>
+
+  <p class="availability-modality-note">
+    El turno mañana comprende el horario de
+    <strong>7:00 AM a 12:00 PM</strong> y el turno tarde de
+    <strong>12:00 PM a 8:00 PM</strong>.
+    Los horarios informados se aplicarán tanto a la modalidad
+    presencial como virtual. Si trabajás con horarios distintos
+    según la modalidad, aclaralo en el campo de observaciones.
+  </p>
+
+  <div class="availability-table-wrapper">
+
+    <table
+      class="availability-table"
+      aria-describedby="availability-description availability-error"
+    >
+
+      <thead>
+
+        <tr>
+          <th scope="col">Día</th>
+          <th scope="col">Mañana</th>
+          <th scope="col">Tarde</th>
+          <th scope="col">No disponible</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <!-- LUNES -->
+
+        <tr data-day="lunes">
+
+          <th scope="row">
+            Lunes
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="lunes"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
                 aria-invalid="false"
-                aria-describedby="disponibilidad-aclaraciones-help disponibilidad-aclaraciones-error"
-                placeholder="Ejemplo: los martes atiendo presencialmente y los jueves únicamente de manera virtual."
-              ></textarea>
+                aria-describedby="availability-description availability-error"
+              />
 
-              <small
-                class="field-help"
-                id="disponibilidad-aclaraciones-help"
-              >
-                Usá este campo si tus horarios cambian según la modalidad,
-                si trabajás con frecuencia quincenal o si necesitás agregar
-                otra aclaración.
-              </small>
+              <span class="visually-hidden">
+                Lunes por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
 
-              <small
-                class="field-error"
-                id="disponibilidad-aclaraciones-error"
-                role="alert"
-              ></small>
+            </label>
 
-            </div>
+          </td>
 
-          </fieldset>
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="lunes"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Lunes por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="lunes"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los lunes
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+
+        <!-- MARTES -->
+
+        <tr data-day="martes">
+
+          <th scope="row">
+            Martes
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="martes"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Martes por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="martes"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Martes por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="martes"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los martes
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+
+        <!-- MIÉRCOLES -->
+
+        <tr data-day="miercoles">
+
+          <th scope="row">
+            Miércoles
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="miercoles"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Miércoles por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="miercoles"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Miércoles por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="miercoles"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los miércoles
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+
+        <!-- JUEVES -->
+
+        <tr data-day="jueves">
+
+          <th scope="row">
+            Jueves
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="jueves"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Jueves por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="jueves"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Jueves por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="jueves"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los jueves
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+
+        <!-- VIERNES -->
+
+        <tr data-day="viernes">
+
+          <th scope="row">
+            Viernes
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="viernes"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Viernes por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="viernes"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Viernes por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="viernes"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los viernes
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+
+        <!-- SÁBADO -->
+
+        <tr data-day="sabado">
+
+          <th scope="row">
+            Sábado
+          </th>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="sabado"
+                value="Mañana"
+                data-period="available"
+                data-shift="morning"
+                data-time-min="07:00"
+                data-time-max="12:00"
+                data-time-min-label="7:00 AM"
+                data-time-max-label="12:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Sábado por la mañana, entre las 7:00 AM y las 12:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="sabado"
+                value="Tarde"
+                data-period="available"
+                data-shift="afternoon"
+                data-time-min="12:00"
+                data-time-max="20:00"
+                data-time-min-label="12:00 PM"
+                data-time-max-label="8:00 PM"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                Sábado por la tarde, entre las 12:00 PM y las 8:00 PM
+              </span>
+
+            </label>
+
+          </td>
+
+          <td>
+
+            <label class="availability-option">
+
+              <input
+                type="checkbox"
+                name="sabado"
+                value="No disponible"
+                data-period="unavailable"
+                aria-invalid="false"
+                aria-describedby="availability-description availability-error"
+              />
+
+              <span class="visually-hidden">
+                No disponible los sábados
+              </span>
+
+            </label>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <small
+    class="field-error availability-error"
+    id="availability-error"
+    role="alert"
+  ></small>
+
+  <div class="form-field form-field-full">
+
+    <label for="disponibilidad-aclaraciones">
+      Observaciones sobre modalidad y disponibilidad
+    </label>
+
+    <textarea
+      id="disponibilidad-aclaraciones"
+      name="aclaraciones-de-disponibilidad"
+      rows="5"
+      maxlength="800"
+      aria-invalid="false"
+      aria-describedby="disponibilidad-aclaraciones-help disponibilidad-aclaraciones-error"
+      placeholder="Ejemplo: los martes atiendo presencialmente y los jueves únicamente de manera virtual."
+    ></textarea>
+
+    <small
+      class="field-help"
+      id="disponibilidad-aclaraciones-help"
+    >
+      Usá este campo si tus horarios cambian según la modalidad,
+      si trabajás con frecuencia quincenal o si necesitás agregar
+      otra aclaración.
+    </small>
+
+    <small
+      class="field-error"
+      id="disponibilidad-aclaraciones-error"
+      role="alert"
+    ></small>
+
+  </div>
+
+</fieldset>
 
           <!-- =========================================
      DECLARACIÓN, TÉRMINOS Y PRIVACIDAD
